@@ -13,7 +13,7 @@
 * [ReactJS v18 + TypeScript](https://react.dev/)
 * [Bun](https://bun.sh/)
 * [VSCode](https://code.visualstudio.com/)
-* [Vercel]<https://vercel.com/>
+* [Vercel](https://vercel.com/)
 
 ## Setup
 
