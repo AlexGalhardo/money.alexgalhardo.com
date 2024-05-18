@@ -1,6 +1,29 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Head from "../Components/Head";
-import { container, maskInputToBrazilReal, totalTempo, transformToBRL } from "../Utils/Functions";
+import { container, maskInputToBrazilReal, transformToBRL } from "../Utils/Functions";
+
+export function totalTime(totalMonths: number): string {
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    if (years === 0) {
+        return months === 1 ? `${months} month` : `${months} months`;
+    }
+
+    if (years === 1 && months === 0) {
+        return `${years} year`;
+    }
+
+    if (years === 1 && months === 1) {
+        return `${years} year and ${months} month`;
+    }
+
+    if (years === 1 && months !== 0) {
+        return `${years} year and ${months} months`;
+    }
+
+    return months === 0 ? `${years} years` : `${years} years and ${months} months`;
+}
 
 export default function HomeEnglish() {
     const [inputValues, setInputValues] = useState({
@@ -108,10 +131,6 @@ export default function HomeEnglish() {
             [name]: Number(numericValue),
         }));
     };
-
-    function totalTime(totalMonths: number): import("react").ReactNode {
-        throw new Error("Function not implemented.");
-    }
 
     return (
         <>
@@ -284,8 +303,8 @@ export default function HomeEnglish() {
                         </p>
                         <p>
                             The final amount accumulated with compound interest profit after{" "}
-                            <span className="text-primary fw-bold">{totalTempo(inputValues.totalMonths)}</span>,
-                            adjusted by the real annual return{" "}
+                            <span className="text-primary fw-bold">{totalTime(inputValues.totalMonths)}</span>, adjusted
+                            by the real annual return{" "}
                             <span className="text-warning fw-bold">{results.realAnnualReturn.toFixed(2)}%</span>, is:{" "}
                             <span className="text-success fw-bold">$ {transformToBRL(results.finalValue)}</span>
                         </p>
