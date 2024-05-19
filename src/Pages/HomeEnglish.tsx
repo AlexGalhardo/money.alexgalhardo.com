@@ -1,29 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Head from "../Components/Head";
-import { container, maskInputToBrazilReal, transformToBRL } from "../Utils/Functions";
-
-export function totalTime(totalMonths: number): string {
-    const years = Math.floor(totalMonths / 12);
-    const months = totalMonths % 12;
-
-    if (years === 0) {
-        return months === 1 ? `${months} month` : `${months} months`;
-    }
-
-    if (years === 1 && months === 0) {
-        return `${years} year`;
-    }
-
-    if (years === 1 && months === 1) {
-        return `${years} year and ${months} month`;
-    }
-
-    if (years === 1 && months !== 0) {
-        return `${years} year and ${months} months`;
-    }
-
-    return months === 0 ? `${years} years` : `${years} years and ${months} months`;
-}
+import { container, maskInputToUSADolar, totalTime, transformToBRL } from "../Utils/Functions";
 
 export default function HomeEnglish() {
     const [inputValues, setInputValues] = useState({
@@ -122,8 +99,8 @@ export default function HomeEnglish() {
         const { name, value } = e.target;
         let numericValue = value;
 
-        if (value.includes("R$")) {
-            numericValue = value.replace("R$", "").replace(".", "").replace(",", "");
+        if (value.includes("$")) {
+            numericValue = value.replace("$", "").replace(".", "").replace(",", "");
         }
 
         setInputValues((prev) => ({
@@ -148,7 +125,7 @@ export default function HomeEnglish() {
                             className="text-decoration-none"
                         >
                             {" "}
-                            Galhardo Financial Independence Calculator
+                            Financial Independence Calculator
                         </a>{" "}
                         <a href="/" className="text-decoration-none">
                             🇧🇷
@@ -162,8 +139,8 @@ export default function HomeEnglish() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Example: R$ 10.00"
-                                    onKeyUp={maskInputToBrazilReal}
+                                    placeholder="Example: $ 10.00"
+                                    onKeyUp={maskInputToUSADolar}
                                     name="desiredMonthlyIncome"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -176,8 +153,8 @@ export default function HomeEnglish() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Example: R$ 10.00"
-                                    onKeyUp={maskInputToBrazilReal}
+                                    placeholder="Example: $ 10.00"
+                                    onKeyUp={maskInputToUSADolar}
                                     name="initialAmount"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -190,8 +167,8 @@ export default function HomeEnglish() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Example: R$ 10.00"
-                                    onKeyUp={maskInputToBrazilReal}
+                                    placeholder="Example: $ 10.00"
+                                    onKeyUp={maskInputToUSADolar}
                                     name="monthlyContribution"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -296,49 +273,73 @@ export default function HomeEnglish() {
                             <span className="text-warning fw-bold">{results.realAnnualReturn.toFixed(2)}% </span>
                         </p>
                         <p>
-                            Compound Interest Profit:{" "}
-                            <span className="text-success fw-bold">
-                                $ {transformToBRL(results.compoundInterestProfit)}
-                            </span>
+                            {results.compoundInterestProfit > 0 ? (
+                                <>
+                                    You profited with Compound Interest:{" "}
+                                    <span className="text-success fw-bold">
+                                        $ {transformToBRL(results.compoundInterestProfit)}
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    You lost purchasing power:{" "}
+                                    <span className="text-danger fw-bold">
+                                        $ {transformToBRL(results.compoundInterestProfit)}
+                                    </span>
+                                </>
+                            )}
                         </p>
+						<hr/>
                         <p>
-                            The final amount accumulated with compound interest profit after{" "}
-                            <span className="text-primary fw-bold">{totalTime(inputValues.totalMonths)}</span>, adjusted
-                            by the real annual return{" "}
-                            <span className="text-warning fw-bold">{results.realAnnualReturn.toFixed(2)}%</span>, is:{" "}
+                            The final amount accumulated with compound interest <br/>after <span className="text-primary fw-bold">{totalTime(inputValues.totalMonths)}</span>
+							<br/>
+							adjusted by the real annual return{" "}
+                            <span className="text-warning fw-bold">{results.realAnnualReturn.toFixed(2)}%</span>
+							<br/>is:{" "}
                             <span className="text-success fw-bold">$ {transformToBRL(results.finalValue)}</span>
                         </p>
                         <hr />
-                        <p>
-                            To receive{" "}
-                            <span className="text-success fw-bold">
-                                $ {transformToBRL(inputValues.desiredMonthlyIncome)}
-                            </span>{" "}
-                            as monthly income already deducting{" "}
-                            <span className="text-danger fw-bold">income tax of {inputValues.incomeTax}%</span> and be
-                            able to stop working:
-                        </p>
-                        <p>
-                            You need to have accumulated:{" "}
-                            <span className="text-success fw-bold">
-                                $ {transformToBRL(results.necessaryAmountForMonthlyIncome)}
-                            </span>{" "}
-                        </p>
-                        <p>
-                            And you need to invest{" "}
-                            <span className="text-success fw-bold">
-                                $ {transformToBRL(results.necessaryMonthlyContribution)}
-                            </span>{" "}
-                            every month until{" "}
-                            <span className="text-primary fw-bold">
-                                {(() => {
-                                    const today = new Date();
-                                    const endDate = new Date(today);
-                                    endDate.setMonth(today.getMonth() + inputValues.totalMonths);
-                                    return endDate.toLocaleDateString("en-US");
-                                })()}{" "}
-                            </span>
-                        </p>
+                        {realAnnualReturn > 0 ? (
+                            <>
+                                <p>
+                                    To receive{" "}
+                                    <span className="text-success fw-bold">
+                                        $ {transformToBRL(inputValues.desiredMonthlyIncome)}
+                                    </span>{" "}
+                                    as monthly income already deducting{" "}
+                                    <span className="text-danger fw-bold">income tax of {inputValues.incomeTax}%</span>{" "}
+                                    and be able to stop working:
+                                </p>
+                                <p>
+                                    You need to have accumulated:{" "}
+                                    <span className="text-success fw-bold">
+                                        $ {transformToBRL(results.necessaryAmountForMonthlyIncome)}
+                                    </span>{" "}
+                                </p>
+                                <p>
+                                    And you need to invest{" "}
+                                    <span className="text-success fw-bold">
+                                        $ {transformToBRL(results.necessaryMonthlyContribution)}
+                                    </span>{" "}
+                                    every month until{" "}
+                                    <span className="text-primary fw-bold">
+                                        {(() => {
+                                            const today = new Date();
+                                            const endDate = new Date(today);
+                                            endDate.setMonth(today.getMonth() + inputValues.totalMonths);
+                                            return endDate.toLocaleDateString("en-US");
+                                        })()}{" "}
+                                    </span>
+                                </p>
+                            </>
+                        ) : (
+                            <p>
+                                <span className="text-info fw-bold">
+                                    The annual real yield needs to be positive for this calculation to be done
+                                    correctly.
+                                </span>{" "}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>

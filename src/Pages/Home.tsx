@@ -126,7 +126,7 @@ export default function Home() {
                             className="text-decoration-none"
                         >
                             {" "}
-                            Galhardo Calculadora Indepêndencia Financeira
+                            Calculadora Indepêndencia Financeira
                         </a>{" "}
                         <a href="/english" className="text-decoration-none">
                             🇺🇸
@@ -274,52 +274,75 @@ export default function Home() {
                             <span className="text-warning fw-bold">{resultados.rendimentoRealAnual.toFixed(2)}% </span>
                         </p>
                         <p>
-                            Lucro Juros Compostos:{" "}
-                            <span className="text-success fw-bold">
-                                R$ {transformToBRL(resultados.lucroJurosCompostos)}
-                            </span>
+                            {resultados.lucroJurosCompostos > 0 ? (
+                                <>
+                                    Vocêu Lucrou com Juros Compostos:{" "}
+                                    <span className="text-success fw-bold">
+                                        R$ {transformToBRL(resultados.lucroJurosCompostos)}
+                                    </span>
+                                </>
+                            ) : (
+                                <>
+                                    Você perdeu em poder de compra:{" "}
+                                    <span className="text-danger fw-bold">
+                                        R$ {transformToBRL(resultados.lucroJurosCompostos)}
+                                    </span>
+                                </>
+                            )}
                         </p>
+						<hr/>
                         <p>
-                            O montante final acumulado com o lucro dos juros compostos após{" "}
-                            <span className="text-primary fw-bold">{totalTempo(inputValues.totalMeses)}</span>, ajustado
-                            pelo rendimento anual real{" "}
-                            <span className="text-warning fw-bold">{resultados.rendimentoRealAnual.toFixed(2)}%</span>,
-                            é de:{" "}
+                            O montante final acumulado com o juros compostos
+							<br/>após <span className="text-primary fw-bold">{totalTempo(inputValues.totalMeses)}</span>
+							<br/>ajustado pelo rendimento anual real{" "}
+                            <span className="text-warning fw-bold">{resultados.rendimentoRealAnual.toFixed(2)}%</span>
+							<br/>é de:{" "}
                             <span className="text-success fw-bold">R$ {transformToBRL(resultados.valorFinal)}</span>
                         </p>
                         <hr />
-                        <p>
-                            Para receber{" "}
-                            <span className="text-success fw-bold">
-                                R$ {transformToBRL(inputValues.rendimentoMensalDesejado)}
-                            </span>{" "}
-                            de renda mensal já descontando o{" "}
-                            <span className="text-danger fw-bold">
-                                imposto de renda de {inputValues.impostoDeRenda}%
-                            </span>{" "}
-                            e poder parar de trabalhar:
-                        </p>
-                        <p>
-                            Você precisa ter acumulado:{" "}
-                            <span className="text-success fw-bold">
-                                R$ {transformToBRL(resultados.valorNecessarioParaRendimentoMensal)}
-                            </span>{" "}
-                        </p>
-                        <p>
-                            E precisa investir{" "}
-                            <span className="text-success fw-bold">
-                                R$ {transformToBRL(resultados.aporteMensalNecessario)}
-                            </span>{" "}
-                            todos os meses até{" "}
-                            <span className="text-primary fw-bold">
-                                {(() => {
-                                    const today = new Date();
-                                    const endDate = new Date(today);
-                                    endDate.setMonth(today.getMonth() + inputValues.totalMeses);
-                                    return endDate.toLocaleDateString("pt-BR");
-                                })()}{" "}
-                            </span>
-                        </p>
+                        {resultados.rendimentoRealAnual > 0 ? (
+                            <>
+                                <p>
+                                    Para receber{" "}
+                                    <span className="text-success fw-bold">
+                                        R$ {transformToBRL(inputValues.rendimentoMensalDesejado)}
+                                    </span>{" "}
+                                    de renda mensal já descontando o{" "}
+                                    <span className="text-danger fw-bold">
+                                        imposto de renda de {inputValues.impostoDeRenda}%
+                                    </span>{" "}
+                                    e poder parar de trabalhar:
+                                </p>
+                                <p>
+                                    Você precisará ter acumulado:{" "}
+                                    <span className="text-success fw-bold">
+                                        R$ {transformToBRL(resultados.valorNecessarioParaRendimentoMensal)}
+                                    </span>{" "}
+                                </p>
+                                <p>
+                                    E vai precisar investir{" "}
+                                    <span className="text-success fw-bold">
+                                        R$ {transformToBRL(resultados.aporteMensalNecessario)}
+                                    </span>{" "}
+                                    todos os meses até{" "}
+                                    <span className="text-primary fw-bold">
+                                        {(() => {
+                                            const today = new Date();
+                                            const endDate = new Date(today);
+                                            endDate.setMonth(today.getMonth() + inputValues.totalMeses);
+                                            return endDate.toLocaleDateString("pt-BR");
+                                        })()}{" "}
+                                    </span>
+                                </p>
+                            </>
+                        ) : (
+                            <p>
+                                <span className="text-info fw-bold">
+                                    O rendimento anual real precisa ser positivo para que esse cálculo seja feito
+                                    corretamente.
+                                </span>{" "}
+                            </p>
+                        )}
                     </div>
                 </div>
             </div>

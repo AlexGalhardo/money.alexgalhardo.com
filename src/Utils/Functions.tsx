@@ -24,6 +24,15 @@ export function maskInputToBrazilReal(e: any) {
     e.target.value = `R$ ${inputValue}`;
 }
 
+export function maskInputToUSADolar(e: any) {
+    let inputValue = e.target.value.replace(/\D/g, "");
+    inputValue = (inputValue / 100).toFixed(2) + "";
+    inputValue = inputValue.replace(".", ",");
+    inputValue = inputValue.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+    inputValue = inputValue.replace(/(\d)(\d{3}),/g, "$1.$2,");
+    e.target.value = `$ ${inputValue}`;
+}
+
 export function maskInputToPercentage(e: any) {
     let inputValue = e.target.value.replace(/\D/g, ""); // Remove non-digit characters
     let numericValue = parseFloat(inputValue) / 100;
@@ -95,4 +104,27 @@ export function totalTempo(totalMeses: number): string {
     }
 
     return meses === 0 ? `${anos} anos` : `${anos} anos e ${meses} meses`;
+}
+
+export function totalTime(totalMonths: number): string {
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    if (years === 0) {
+        return months === 1 ? `${months} month` : `${months} months`;
+    }
+
+    if (years === 1 && months === 0) {
+        return `${years} year`;
+    }
+
+    if (years === 1 && months === 1) {
+        return `${years} year and ${months} month`;
+    }
+
+    if (years === 1 && months !== 0) {
+        return `${years} year and ${months} months`;
+    }
+
+    return months === 0 ? `${years} years` : `${years} years and ${months} months`;
 }
