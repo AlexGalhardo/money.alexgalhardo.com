@@ -150,7 +150,7 @@ export default function Home() {
 
                             <div className="mb-3">
                                 <label className="form-label text-secondary fw-bold">
-                                    Quanto tem pra investir agora:
+                                    Quanto você tem pra investir agora:
                                 </label>
                                 <input
                                     className="form-control fs-4"
