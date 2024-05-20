@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Head from "../Components/Head";
-import { container, maskInputToBrazilReal, totalTempo, transformToBRL } from "../Utils/Functions";
+import { maskInputToCurrency, totalTime, transformToBRL } from "../Utils/Functions";
 
 export default function Home() {
     const [inputValues, setInputValues] = useState({
@@ -33,15 +33,7 @@ export default function Home() {
         impostoDeRenda,
     } = inputValues;
 
-    const {
-        valorFinal,
-        totalAportesMensais,
-        montanteInicialMaisAportesMensais,
-        lucroJurosCompostos,
-        valorNecessarioParaRendimentoMensal,
-        aporteMensalNecessario,
-        rendimentoRealAnual,
-    } = resultados;
+    const { montanteInicialMaisAportesMensais, valorNecessarioParaRendimentoMensal, rendimentoRealAnual } = resultados;
 
     useEffect(() => {
         if (mediaRendimentoAnual && mediaInflacaoAnual) {
@@ -117,7 +109,7 @@ export default function Home() {
                 description="A personal project I created for my goals and financial studies."
             />
 
-            <div className="container col-lg-10" style={container}>
+            <div className="container col-lg-10" style={{ marginTop: "20px" }}>
                 <div className="row">
                     <h1 className="fs-1 fw-bold text-white text-center mb-3 mb-5" id="modalLabel">
                         <a
@@ -141,7 +133,7 @@ export default function Home() {
                                 <input
                                     className="form-control fs-4"
                                     placeholder="Exemplo: R$ 3.000,00"
-                                    onKeyUp={maskInputToBrazilReal}
+                                    onKeyUp={(e) => maskInputToCurrency(e, "pt-br")}
                                     name="rendimentoMensalDesejado"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -155,7 +147,7 @@ export default function Home() {
                                 <input
                                     className="form-control fs-4"
                                     placeholder="Exemplo: R$ 10.000,00"
-                                    onKeyUp={maskInputToBrazilReal}
+                                    onKeyUp={(e) => maskInputToCurrency(e, "pt-br")}
                                     name="montanteInicial"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -169,7 +161,7 @@ export default function Home() {
                                 <input
                                     className="form-control fs-4"
                                     placeholder="Exemplo: R$ 500,00"
-                                    onKeyUp={maskInputToBrazilReal}
+                                    onKeyUp={(e) => maskInputToCurrency(e, "pt-br")}
                                     name="aporteMensal"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -290,13 +282,16 @@ export default function Home() {
                                 </>
                             )}
                         </p>
-						<hr/>
+                        <hr />
                         <p>
                             O montante final acumulado com o juros compostos
-							<br/>após <span className="text-primary fw-bold">{totalTempo(inputValues.totalMeses)}</span>
-							<br/>ajustado pelo rendimento anual real{" "}
+                            <br />
+                            após{" "}
+                            <span className="text-primary fw-bold">{totalTime(inputValues.totalMeses, "pt-br")}</span>
+                            <br />
+                            ajustado pelo rendimento anual real{" "}
                             <span className="text-warning fw-bold">{resultados.rendimentoRealAnual.toFixed(2)}%</span>
-							<br/>é de:{" "}
+                            <br />é de:{" "}
                             <span className="text-success fw-bold">R$ {transformToBRL(resultados.valorFinal)}</span>
                         </p>
                         <hr />

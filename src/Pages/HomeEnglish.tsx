@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Head from "../Components/Head";
-import { container, maskInputToUSADolar, totalTime, transformToBRL } from "../Utils/Functions";
+import { maskInputToCurrency, totalTime, transformToBRL } from "../Utils/Functions";
 
 export default function HomeEnglish() {
     const [inputValues, setInputValues] = useState({
@@ -33,15 +33,7 @@ export default function HomeEnglish() {
         incomeTax,
     } = inputValues;
 
-    const {
-        finalValue,
-        totalMonthlyContributions,
-        initialAmountPlusMonthlyContributions,
-        compoundInterestProfit,
-        necessaryAmountForMonthlyIncome,
-        necessaryMonthlyContribution,
-        realAnnualReturn,
-    } = results;
+    const { initialAmountPlusMonthlyContributions, necessaryAmountForMonthlyIncome, realAnnualReturn } = results;
 
     useEffect(() => {
         if (averageAnnualReturn && averageAnnualInflation) {
@@ -116,7 +108,7 @@ export default function HomeEnglish() {
                 description="A personal project I created for my goals and financial studies."
             />
 
-            <div className="container col-lg-10" style={container}>
+            <div className="container col-lg-10" style={{ marginTop: "20px" }}>
                 <div className="row">
                     <h1 className="fs-1 fw-bold text-white text-center mb-3 mb-5" id="modalLabel">
                         <a
@@ -140,7 +132,7 @@ export default function HomeEnglish() {
                                 <input
                                     className="form-control fs-4"
                                     placeholder="Example: $ 3.000,00"
-                                    onKeyUp={maskInputToUSADolar}
+                                    onKeyUp={maskInputToCurrency}
                                     name="desiredMonthlyIncome"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -154,7 +146,7 @@ export default function HomeEnglish() {
                                 <input
                                     className="form-control fs-4"
                                     placeholder="Example: $ 10.000,00"
-                                    onKeyUp={maskInputToUSADolar}
+                                    onKeyUp={maskInputToCurrency}
                                     name="initialAmount"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -168,7 +160,7 @@ export default function HomeEnglish() {
                                 <input
                                     className="form-control fs-4"
                                     placeholder="Example: $ 500,00"
-                                    onKeyUp={maskInputToUSADolar}
+                                    onKeyUp={maskInputToCurrency}
                                     name="monthlyContribution"
                                     onChange={(e) => handleChange(e)}
                                     required
@@ -289,14 +281,15 @@ export default function HomeEnglish() {
                                 </>
                             )}
                         </p>
-						<hr/>
+                        <hr />
                         <p>
-                            The final amount accumulated with compound interest <br/>after <span className="text-primary fw-bold">{totalTime(inputValues.totalMonths)}</span>
-							<br/>
-							adjusted by the real annual return{" "}
+                            The final amount accumulated with compound interest <br />
+                            after <span className="text-primary fw-bold">{totalTime(inputValues.totalMonths)}</span>
+                            <br />
+                            adjusted by the real annual return{" "}
                             <span className="text-warning fw-bold">{results.realAnnualReturn.toFixed(2)}%</span>
-							<br/>is:{" "}
-                            <span className="text-success fw-bold">$ {transformToBRL(results.finalValue)}</span>
+                            <br />
+                            is: <span className="text-success fw-bold">$ {transformToBRL(results.finalValue)}</span>
                         </p>
                         <hr />
                         {realAnnualReturn > 0 ? (
