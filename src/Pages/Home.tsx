@@ -140,7 +140,7 @@ export default function Home() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Exemplo: R$ 10.00"
+                                    placeholder="Exemplo: R$ 3.000,00"
                                     onKeyUp={maskInputToBrazilReal}
                                     name="rendimentoMensalDesejado"
                                     onChange={(e) => handleChange(e)}
@@ -154,7 +154,7 @@ export default function Home() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Exemplo: R$ 10.00"
+                                    placeholder="Exemplo: R$ 10.000,00"
                                     onKeyUp={maskInputToBrazilReal}
                                     name="montanteInicial"
                                     onChange={(e) => handleChange(e)}
@@ -168,7 +168,7 @@ export default function Home() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Exemplo: R$ 10.00"
+                                    placeholder="Exemplo: R$ 500,00"
                                     onKeyUp={maskInputToBrazilReal}
                                     name="aporteMensal"
                                     onChange={(e) => handleChange(e)}

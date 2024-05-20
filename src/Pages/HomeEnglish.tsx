@@ -139,7 +139,7 @@ export default function HomeEnglish() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Example: $ 10.00"
+                                    placeholder="Example: $ 3.000,00"
                                     onKeyUp={maskInputToUSADolar}
                                     name="desiredMonthlyIncome"
                                     onChange={(e) => handleChange(e)}
@@ -153,7 +153,7 @@ export default function HomeEnglish() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Example: $ 10.00"
+                                    placeholder="Example: $ 10.000,00"
                                     onKeyUp={maskInputToUSADolar}
                                     name="initialAmount"
                                     onChange={(e) => handleChange(e)}
@@ -167,7 +167,7 @@ export default function HomeEnglish() {
                                 </label>
                                 <input
                                     className="form-control fs-4"
-                                    placeholder="Example: $ 10.00"
+                                    placeholder="Example: $ 500,00"
                                     onKeyUp={maskInputToUSADolar}
                                     name="monthlyContribution"
                                     onChange={(e) => handleChange(e)}
