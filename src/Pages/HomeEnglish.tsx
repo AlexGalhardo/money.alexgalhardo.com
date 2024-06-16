@@ -126,7 +126,7 @@ export default function HomeEnglish() {
                     <div className="col-lg-6">
                         <div className="modal-body">
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     How much do you want to earn per month without working:
                                 </label>
                                 <input
@@ -140,7 +140,7 @@ export default function HomeEnglish() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     How much do you have to invest now:
                                 </label>
                                 <input
@@ -154,7 +154,7 @@ export default function HomeEnglish() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     How much do you intend to invest per month:
                                 </label>
                                 <input
@@ -168,7 +168,7 @@ export default function HomeEnglish() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     How long do you plan to stop working (months):
                                 </label>
                                 <input
@@ -184,7 +184,7 @@ export default function HomeEnglish() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Average annual return on your investments in %:
                                 </label>
                                 <input
@@ -201,7 +201,7 @@ export default function HomeEnglish() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Expected average annual inflation in %:
                                 </label>
                                 <input
@@ -218,9 +218,7 @@ export default function HomeEnglish() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
-                                    Income Tax on Investment in %:
-                                </label>
+                                <label className="form-label  fw-bold text-white">Income Tax on Investment in %:</label>
                                 <input
                                     className="form-control fs-4"
                                     min={0.1}
@@ -292,7 +290,7 @@ export default function HomeEnglish() {
                             is: <span className="text-success fw-bold">$ {transformToBRL(results.finalValue)}</span>
                         </p>
                         <hr />
-                        {realAnnualReturn > 0 ? (
+                        {realAnnualReturn > 0 && inputValues.desiredMonthlyIncome > 0 ? (
                             <>
                                 <p>
                                     To receive{" "}
@@ -312,7 +310,12 @@ export default function HomeEnglish() {
                                 <p>
                                     And you need to invest{" "}
                                     <span className="text-success fw-bold">
-                                        $ {transformToBRL(results.necessaryMonthlyContribution)}
+                                        ${" "}
+                                        {transformToBRL(
+                                            results.necessaryMonthlyContribution > 0
+                                                ? results.necessaryMonthlyContribution
+                                                : 0,
+                                        )}
                                     </span>{" "}
                                     every month until{" "}
                                     <span className="text-primary fw-bold">
@@ -328,8 +331,8 @@ export default function HomeEnglish() {
                         ) : (
                             <p>
                                 <span className="text-info fw-bold">
-                                    The annual real yield needs to be positive for this calculation to be done
-                                    correctly.
+                                    The actual annual income must be positive for this calculation to be done correctly.
+                                    It is also necessary to fill in how much you want to earn per month.
                                 </span>{" "}
                             </p>
                         )}

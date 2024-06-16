@@ -127,7 +127,7 @@ export default function Home() {
                     <div className="col-lg-6">
                         <div className="modal-body">
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Quanto você quer ganhar por mês sem trabalhar:
                                 </label>
                                 <input
@@ -141,7 +141,7 @@ export default function Home() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Quanto você tem pra investir agora:
                                 </label>
                                 <input
@@ -155,7 +155,7 @@ export default function Home() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Quanto você pretende investir por mês:
                                 </label>
                                 <input
@@ -169,7 +169,7 @@ export default function Home() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Em quanto tempo pretende parar de trabalhar (meses):
                                 </label>
                                 <input
@@ -185,7 +185,7 @@ export default function Home() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Rendimento anual médio das suas aplicações em %:
                                 </label>
                                 <input
@@ -202,7 +202,7 @@ export default function Home() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Expectativa de Inflação anual média em %:
                                 </label>
                                 <input
@@ -219,7 +219,7 @@ export default function Home() {
                             </div>
 
                             <div className="mb-3">
-                                <label className="form-label text-secondary fw-bold">
+                                <label className="form-label  fw-bold text-white">
                                     Imposto de Renda Sobre o Investimento em %:
                                 </label>
                                 <input
@@ -295,7 +295,7 @@ export default function Home() {
                             <span className="text-success fw-bold">R$ {transformToBRL(resultados.valorFinal)}</span>
                         </p>
                         <hr />
-                        {resultados.rendimentoRealAnual > 0 ? (
+                        {resultados.rendimentoRealAnual > 0 && inputValues.rendimentoMensalDesejado > 0 ? (
                             <>
                                 <p>
                                     Para receber{" "}
@@ -317,7 +317,12 @@ export default function Home() {
                                 <p>
                                     E vai precisar investir{" "}
                                     <span className="text-success fw-bold">
-                                        R$ {transformToBRL(resultados.aporteMensalNecessario)}
+                                        R${" "}
+                                        {transformToBRL(
+                                            resultados.aporteMensalNecessario > 0
+                                                ? resultados.aporteMensalNecessario
+                                                : 0,
+                                        )}
                                     </span>{" "}
                                     todos os meses até{" "}
                                     <span className="text-primary fw-bold">
@@ -334,7 +339,7 @@ export default function Home() {
                             <p>
                                 <span className="text-info fw-bold">
                                     O rendimento anual real precisa ser positivo para que esse cálculo seja feito
-                                    corretamente.
+                                    corretamente. Também é necessário o quanto você quer receber por mês ser preenchido.
                                 </span>{" "}
                             </p>
                         )}

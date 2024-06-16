@@ -4,7 +4,7 @@
 
 ## Introduction
 
-* A personal project I created for my goals and financial studies.
+- A simple financial independence calculator
 
 ## Technologies
 
@@ -15,50 +15,22 @@
 * [VSCode](https://code.visualstudio.com/)
 * [Vercel](https://vercel.com/)
 
-## Setup
+## Development Setup Local
 
-* Clone this repository
-
-<!---->
-
-```
-git clone https://github.com/AlexGalhardo/money.alexgalhardo.com
+1. Clone this repository
+```bash
+git clone git@github.com:AlexGalhardo/money.alexgalhardo.com.git
 ```
 
-* Enter repository
-
-<!---->
-
-```
+2. Enter repository
+```bash
 cd money.alexgalhardo.com/
 ```
 
-* Install dependencies
-
-<!---->
-
+3. Run setup.sh
+```bash
+chmod +x setup.sh && ./setup.sh
 ```
-bun install
-```
-
-* Setup enviroment variables
-
-<!---->
-
-```
-cp .env.example .env
-```
-
-* Start local server
-
-<!---->
-
-```
-bun run dev
-```
-
-* Go to: <http://localhost:5173/>
-
 
 ## License
 
